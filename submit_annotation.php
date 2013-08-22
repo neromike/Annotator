@@ -1,17 +1,17 @@
 <?php
 //need to first check if user is still logged in
-if (isset($_COOKIE["user"])) {
-	$user = $_COOKIE["user"];
+if (isset($_SESSION["user"])) {
+	$user = $_SESSION["user"];
 } else {
-	setcookie("user","",time() - 3600);
-	setcookie("pass","",time() - 3600);
+	unset($_SESSION["user"]);
+	unset($_SESSION["pass"]);
 	header( 'Location: login.php?error=submit_log' ) ;
 }
-if (isset($_COOKIE["pass"])) {
-	$pass = $_COOKIE["pass"];
+if (isset($_SESSION["pass"])) {
+	$pass = $_SESSION["pass"];
 } else {
-	setcookie("user","",time() - 3600);
-	setcookie("pass","",time() - 3600);
+	unset($_SESSION["user"]);
+	unset($_SESSION["pass"]);
 	header( 'Location: login.php?error=submit_log' ) ;
 }
 //now check if user/pass is correct
@@ -30,8 +30,8 @@ while($line = fgets($fh)) {
 }
 fclose($fh);
 if (! $correct_login) {
-	setcookie("user","",time() - 3600);
-	setcookie("pass","",time() - 3600);
+	unset($_SESSION["user"]);
+	unset($_SESSION["pass"]);
 	header( 'Location: login.php?error=submit_log' ) ;
 }
 

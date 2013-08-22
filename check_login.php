@@ -1,6 +1,8 @@
 <?php
-if (isset($_COOKIE["user"])) {
-	$user = $_COOKIE["user"];
+session_start();
+if (isset($_SESSION["user"])) {
+	$user = $_SESSION["user"];
+	$role = $_SESSION["role"];
 } else {
 	header( 'Location: login.php' ) ;
 }

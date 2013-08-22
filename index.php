@@ -41,6 +41,7 @@ table {
 		</td>
 		<td align="right" style="font-size:12px;">
 			Logged in as <em><?php echo $user; ?></em>
+			<span style="color:grey;">(<?php echo $role; ?>)</span>
 			<br />
 			<a href="logout.php">Log out</a>
 		</td>
@@ -95,8 +96,10 @@ table {
 			echo '<td>';
 			
 			echo '<a href="annotate.php?pmid='. $pmid_item . '">annotate</a>';
-			echo "&nbsp;";
-			echo '<a href="index.php?pmid_delete=' . $pmid_item . '">delete</a>';
+			if ($role == "editor") {
+				echo "&nbsp;";
+				echo '<a href="index.php?pmid_delete=' . $pmid_item . '">delete</a>';
+			}
 			
 			echo '</td>';
 			

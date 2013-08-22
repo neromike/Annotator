@@ -1,4 +1,5 @@
 <?php
+session_start();
 $error = "";
 if (isset($_GET['error'])) {
 	$error = $_GET['error'];
@@ -15,15 +16,18 @@ if (isset($_GET['error'])) {
 				$user_check = str_replace("\n", "", $user_check);
 				$pass_check = str_replace("\r", "", $thisline[1]);
 				$pass_check = str_replace("\n", "", $pass_check);
+				$role_check = str_replace("\r", "", $thisline[2]);
+				$role_check = str_replace("\n", "", $role_check);
 				if (($user_check == $user) && ($pass_check == $pass)) {
 					$user_log = $user;
 					break;
 				}
 			}
-			fclose($fh);
+			fclose($fh);			
 			if ($user_log != "") {
-				setcookie("user", $user, time() + 3600);
-				setcookie("pass", $pass, time() + 3600);
+				$_SESSION["user"] = $user_log;
+				$_SESSION["pass"] = $pass;
+				$_SESSION["role"] = $role_check;
 				header( 'Location: index.php' );
 			} else {
 				$error = "bad cred";
@@ -57,7 +61,7 @@ input { padding: 5px; }
 </style>
 
 <div id="login_box">
-	<h1>Clinical Annotator Login</h1>
+	<h1>Annotation Assistant Login</h1>
 	<div id="error_box" <?php if ($error=="") { echo "style='display:none;' "; } ?>>
 		<?php
 			if ($error == "no user") {
@@ -77,7 +81,28 @@ input { padding: 5px; }
 		<input type="submit" />
 	</form>
 	<br />
-	Try username 'test', password 'user'.
+	<center>
+		<div style="border:1px solid grey; border-radius:20px; width:300px">
+			<h3><u>Test accounts</u></h3>
+			<table>
+				<tr>
+					<th>Username</th>
+					<th>Password</th>
+					<th>Role</th>
+				</tr>
+				<tr>
+					<td>annot</td>
+					<td>test</td>
+					<td>Annotator</td>
+				</tr>
+				<tr>
+					<td>editor</td>
+					<td>test</td>
+					<td>Editor</td>
+				</tr>
+			</table>
+		</div>
+	</center>
 </div>
 	
 <?php include("footer.php"); ?>

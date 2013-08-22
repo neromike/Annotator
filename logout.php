@@ -1,5 +1,7 @@
 <?php
-setcookie("user","",time() - 3600);
-setcookie("pass","",time() - 3600);
+session_start();
+unset($_SESSION["user"]);
+unset($_SESSION["pass"]);
+unset($_SESSION["role"]);
 header( 'Location: login.php' );
 ?>
