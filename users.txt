@@ -1,2 +1,2 @@
-wayne	test
-test	user
+annot	test	annotator
+editor	test	editor
